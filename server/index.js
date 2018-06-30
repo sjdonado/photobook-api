@@ -1,12 +1,11 @@
 const express = require('express');
 
+const api = require('./api/v1/');
+
 const app = express();
 
-app.get('/', (req, res, next) => {
-  res.json({
-    message: 'Welcome to API',
-  });
-});
+app.use('/api/v1', api);
+app.use('/api', api);
 
 app.use((req, res, next) => {
   res.status(404);
@@ -18,7 +17,7 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   res.status(500);
   res.json({
-    message: 'Server error',
+    message: err.message,
   });
 });
 
